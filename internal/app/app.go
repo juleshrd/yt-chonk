@@ -18,12 +18,12 @@ import (
 	"yt-chonk/internal/core"
 )
 
-var Version = "0.1.0"
+var Version = "0.1.1"
 
 const help = `yt-chonk: transcribe YouTube audio in its original language
 
 Commands:
-  setup                  Choose a backend and save preferences
+  setup                  Compare model prices and save preferences
   doctor                 Check dependencies for your backend
   transcribe URL [--backend mistral|local] [--format txt|md|json]
     [--language CODE] [--model MODEL] [--output PATH] [--force] [--quiet]

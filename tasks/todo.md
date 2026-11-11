@@ -1,5 +1,33 @@
 # Implémentation V1
 
+## Model selection and pricing in setup
+
+- [x] Verify current file-transcription models and official USD pricing.
+- [x] Add an explicit model choice with per-minute and per-hour prices; preserve saved choices and CLI overrides.
+- [x] Cover selection, repeat setup, invalid input and cancellation; update short English docs.
+- [ ] Run Go checks and four CGO-free builds, then publish an updated Homebrew revision.
+
+Plan: use an offline, dated price snapshot for the two supported file models.
+Keep Mini 3 as the default; explain the local backend has no API fee.
+Show the official pricing link and do not make a paid/network call in setup.
+
+### Model setup review
+
+- Official Mistral pricing and file-transcription docs verified on 2026-11-11.
+  Mini 3: USD 0.0035/min (0.21/hour); Small 3: USD 0.004/min (0.24/hour).
+  Deprecated Mini 2 and the WebSocket realtime model are excluded.
+- Setup saves the choice, keeps it on repeat setup, handles a backend switch,
+  and retains custom configured IDs with an explicit unknown-price label.
+  A bad selection leaves the existing config untouched. CLI overrides still
+  select their own cache without changing the saved choice.
+- gofmt, go test -race ./..., go vet ./... and git diff --check passed.
+  Existing cancellation test passed. Test servers are local; no paid API calls.
+- Version 0.1.1 built with CGO disabled for darwin/amd64, darwin/arm64,
+  linux/amd64 and linux/arm64. Archive checksums verified. macOS arm64 binary
+  setup exercised with temporary config (Small selected), and version checked.
+  README/SPEC/integration local links checked. Independent review found no issues.
+- Full Homebrew installation and real Mistral transcription remain untested.
+
 Plan validé par l'utilisateur le 11 novembre 2026.
 
 - [x] Modèle commun et adaptateurs externes (processus, YouTube, audio, moteurs).

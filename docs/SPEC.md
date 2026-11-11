@@ -39,7 +39,13 @@ yt-chonk cache clean
 ```
 
 - `setup` mémorise le moteur et les préférences ; il peut configurer la clé
-  Mistral via une saisie masquée. Il guide l'installation des dépendances et
+  Mistral via une saisie masquée. Pour Mistral, il propose Mini Transcribe 3
+  (défaut) et Small Transcribe 3 avec leur tarif standard en USD par minute et
+  une estimation pour une heure d'audio. Le relevé est daté et lié au tarif
+  officiel ; le setup ne contacte pas le service. Une sélection existante est
+  conservée par défaut, y compris un identifiant personnalisé dont le prix
+  est signalé comme indisponible. Le local indique l'absence de frais API.
+  Il guide l'installation des dépendances et
   modèles. Les téléchargements sont des actions explicites, jamais un effet
   caché d'une simple consultation d'aide ou d'un diagnostic.
 - `doctor` vérifie uniquement les capacités utiles au moteur choisi : outils,

@@ -34,11 +34,23 @@ Choose a backend during setup:
 - `local` needs [whisper-cli and a model](https://github.com/ggml-org/whisper.cpp).
   Start with the multilingual `ggml-small.bin` and give setup its file path.
 
+For Mistral, setup shows prices and saves your model choice:
+
+| Model | USD/min | About USD/hour |
+| --- | ---: | ---: |
+| Voxtral Mini Transcribe 3 (default) | $0.0035 | $0.21 |
+| Voxtral Small Transcribe 3 | $0.0040 | $0.24 |
+
+[Standard API prices](https://docs.mistral.ai/inference/pricing), checked
+2026-11-11; prices may change. Local transcription has no API fee.
+Run `yt-chonk setup` again to change your choice, or use `--model` for one run.
+
 The default output is a TXT file in the current folder. A few options:
 
 ```sh
 yt-chonk transcribe 'URL' --format md --output notes.md
 yt-chonk transcribe 'URL' --format json --output transcript.json
+yt-chonk transcribe 'URL' --backend mistral --model voxtral-small-transcribe-3
 yt-chonk transcribe 'URL' --backend local --model '/path/to/ggml-small.bin' --language en
 ```
 
@@ -59,7 +71,7 @@ Requires Go 1.23 or newer. To build from source instead of using Homebrew:
 go build -o yt-chonk ./cmd/yt-chonk
 go test ./...
 go vet ./...
-sh scripts/release.sh v0.1.0
+sh scripts/release.sh v0.1.1
 ```
 
 Release archives and checksums go into `dist/`. Integration tests use fake tools

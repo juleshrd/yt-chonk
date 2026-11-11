@@ -25,6 +25,15 @@ et normalise le JSON reçu. `return_language=true` est envoyé en détection
 automatique ; une langue inconnue reste nulle. Les timestamps au mot et les
 numéros de locuteur ne sont pas exposés par le CLI.
 
+Le setup propose aussi `voxtral-small-transcribe-3`, compatible avec les mêmes
+champs selon le guide. Le [tarif standard](https://docs.mistral.ai/inference/pricing)
+relevé le 11 novembre 2026 est de 0,0035 USD/min pour Mini 3 (0,21 USD/heure)
+et 0,004 USD/min pour Small 3 (0,24 USD/heure). Le setup affiche ce relevé
+hors ligne, sa date et le lien officiel ; ces estimations ne garantissent pas
+le montant facturé. Mini 2 est déprécié et le modèle Realtime utilise un autre
+parcours ; aucun des deux n'est proposé. `--model` reste libre pour un autre
+identifiant et prévaut sur le modèle mémorisé.
+
 La page [limitations connues](https://docs.mistral.ai/resources/known-limitations)
 annonce WAV parmi les formats acceptés, au maximum 60 minutes et 500 MB par
 fichier de transcription. Les morceaux de cinq minutes, d'environ 9,6 MB de PCM,

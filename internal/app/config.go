@@ -11,6 +11,7 @@ import (
 	"os/exec"
 	"path/filepath"
 	"runtime"
+	"strconv"
 	"strings"
 	"time"
 
@@ -112,6 +113,8 @@ func setup(ctx context.Context, dir string, c Config, in io.Reader, out io.Write
 		}
 		return s
 	}
+	previousBackend := c.Backend
+	fmt.Fprintln(out, "Backend costs: mistral uses a paid API; local has no API fee (runs on your hardware).")
 	c.Backend = ask("Backend (mistral/local)", c.Backend)
 	if c.Backend != "mistral" && c.Backend != "local" {
 		return errors.New("Choose mistral or local")
@@ -125,7 +128,14 @@ func setup(ctx context.Context, dir string, c Config, in io.Reader, out io.Write
 		c.LocalModel = ask("Path to the multilingual whisper.cpp small model", c.LocalModel)
 		fmt.Fprintln(out, "Install whisper.cpp and download ggml-small.bin from the official models: https://github.com/ggml-org/whisper.cpp/tree/master/models")
 	} else {
-		c.Model = "voxtral-mini-transcribe-3"
+		if previousBackend != "mistral" {
+			c.Model = ""
+		}
+		model, err := setupMistralModel(c.Model, ask, out)
+		if err != nil {
+			return err
+		}
+		c.Model = model
 		if ask("Save an API key in the system keychain? (yes/no)", "no") == "yes" {
 			f, ok := in.(*os.File)
 			if !ok {
@@ -157,4 +167,41 @@ func setup(ctx context.Context, dir string, c Config, in io.Reader, out io.Write
 	}
 	fmt.Fprintln(out, "Settings saved. Run yt-chonk doctor to check your dependencies.")
 	return nil
+}
+
+func setupMistralModel(current string, ask func(string, string) string, out io.Writer) (string, error) {
+	models := []struct {
+		id, name, description string
+		usdPerMinute          float64
+	}{
+		{"voxtral-mini-transcribe-3", "Voxtral Mini Transcribe 3", "Lower cost; recommended for most recordings.", 0.0035},
+		{"voxtral-small-transcribe-3", "Voxtral Small Transcribe 3", "Higher transcription quality; slightly higher cost.", 0.004},
+	}
+	fmt.Fprintln(out, "\nMistral file transcription models:")
+	choice := "1"
+	known := current == ""
+	for i, m := range models {
+		fmt.Fprintf(out, "  %d) %s — USD %.4f/min | about USD %.2f for 1 hour of audio\n     %s\n", i+1, m.name, m.usdPerMinute, m.usdPerMinute*60, m.description)
+		if current == m.id {
+			choice, known = strconv.Itoa(i+1), true
+		}
+	}
+	// Keep custom IDs configured outside setup; never guess their prices.
+	if !known {
+		fmt.Fprintf(out, "  3) Keep current model: %s — pricing unavailable\n", current)
+		choice = "3"
+	}
+	fmt.Fprintln(out, "Standard API prices in USD, checked 2026-11-11. Prices may change.")
+	fmt.Fprintln(out, "https://docs.mistral.ai/inference/pricing")
+	switch ask("Choose a model", choice) {
+	case "1", models[0].id:
+		return models[0].id, nil
+	case "2", models[1].id:
+		return models[1].id, nil
+	case "3":
+		if !known {
+			return current, nil
+		}
+	}
+	return "", errors.New("Choose a listed model number, then run yt-chonk setup again")
 }

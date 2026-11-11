@@ -1,5 +1,9 @@
 # Enseignements
 
+- Un choix de service payant doit être proposé dans le setup avec ses tarifs
+  comparables, datés et sourcés. Mémoriser le choix et conserver la priorité
+  des options CLI ; ne pas réduire la configuration à une valeur cachée.
+
 - Comparer les technologies selon les priorités exprimées avant de recommander
   une stack. Ici : distribution macOS/Linux et orchestration d'outils natifs.
   Distinguer performance du CLI et performance de l'inférence ; l'existence
