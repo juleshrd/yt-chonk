@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "video": {
+    "id": "abcdefghijk",
+    "url": "https://www.youtube.com/watch?v=abcdefghijk",
+    "title": "Exemple synthétique",
+    "channel": null,
+    "duration_seconds": 302
+  },
+  "backend": "mistral",
+  "model": "voxtral-mini-transcribe-3",
+  "language": "fr",
+  "text": "Bonjour.\n\nAu revoir.",
+  "segments": [
+    {"start": 0.2, "end": 1.5, "text": "Bonjour."},
+    {"start": 300.1, "end": 301.8, "text": "Au revoir."}
+  ]
+}

@@ -1,0 +1,26 @@
+name: Release archives
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  archives:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: false
+      - run: go test ./...
+      - run: go vet ./...
+      - name: Build archives
+        env:
+          RELEASE_VERSION: ${{ github.ref_type == 'tag' && github.ref_name || 'dev' }}
+        run: sh scripts/release.sh "$RELEASE_VERSION"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: release-archives
+          path: dist/

@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "yt-chonk transcription version 1",
+  "description": "Export complet uniquement. Les temps sont exprimés en secondes depuis le début de la vidéo. L'ordre et les bornes relatives des segments sont vérifiés par l'application.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "video", "backend", "model", "language", "text", "segments"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "video": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "url", "title", "channel", "duration_seconds"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^[A-Za-z0-9_-]{11}$"},
+        "url": {"type": "string", "format": "uri"},
+        "title": {"type": ["string", "null"]},
+        "channel": {"type": ["string", "null"]},
+        "duration_seconds": {"type": "number", "exclusiveMinimum": 0, "maximum": 14400}
+      }
+    },
+    "backend": {"enum": ["mistral", "local"]},
+    "model": {"type": "string", "minLength": 1},
+    "language": {"type": ["string", "null"]},
+    "text": {"type": "string"},
+    "segments": {
+      "type": "array",
+      "description": "Liste vide si aucun horodatage n'est disponible, ou si la transcription est vide.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["start", "end", "text"],
+        "properties": {
+          "start": {"type": "number", "minimum": 0, "maximum": 14400},
+          "end": {"type": "number", "minimum": 0, "maximum": 14400},
+          "text": {"type": "string"}
+        }
+      }
+    }
+  }
+}

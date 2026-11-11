@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "video": {
+    "id": "abcdefghijk",
+    "url": "https://www.youtube.com/watch?v=abcdefghijk",
+    "title": null,
+    "channel": null,
+    "duration_seconds": 2
+  },
+  "backend": "local",
+  "model": "small",
+  "language": null,
+  "text": "",
+  "segments": []
+}
