@@ -73,3 +73,22 @@ annulation de setup et configuration initiale dans un dossier absent.
   Four target archives regenerated. README local links and git diff --check passed.
 - No installation into the user's home directory was performed. README and
   response provide the requested commands. No real transcription was run.
+
+## Simplify installation with Homebrew
+
+- [x] Add a formula in this repository, with an immutable source revision and all runtime dependencies.
+- [x] Replace manual installation in the README with tap/install commands.
+- [x] Validate formula loading, build/test commands and local links.
+- [x] Prepare the verified formula and README for commit and publication.
+
+### Homebrew verification
+
+- ruby -c passed. The formula loaded successfully with Homebrew 7.0.13;
+  source revision, version and dependency metadata verified.
+- Underlying Go build with CGO disabled and the formula version flag passed;
+  generated binary --version and --help ran successfully.
+- README local links and git diff --check passed. No application Go code changed.
+- Full brew install / brew test not performed: no changes were made to the
+  host's packages or taps. whisper.cpp model download remains explicit.
+- The formula pins the existing published app commit; future app releases
+  must bump the formula version and source revision together.

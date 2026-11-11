@@ -6,29 +6,18 @@ four hours are supported.
 
 ## Install
 
-Build from this repo with Go 1.23 or newer:
+With [Homebrew](https://brew.sh) on macOS or Linux:
 
 ```sh
-go build -o yt-chonk ./cmd/yt-chonk
+brew tap juleshrd/yt-chonk https://github.com/juleshrd/yt-chonk
+brew install juleshrd/yt-chonk/yt-chonk
 ```
 
-To use it from any folder, copy the binary into your PATH. This works on macOS
-and Linux, without sudo. Skip the build if you already have the binary.
+Homebrew installs the audio tools and puts `yt-chonk` in your PATH. It also
+handles the Go build, so you don't need to install Go yourself or copy files.
+A Whisper model is a separate download if you choose local transcription.
 
-```sh
-mkdir -p "$HOME/.local/bin"
-install -m 755 ./yt-chonk "$HOME/.local/bin/yt-chonk"
-export PATH="$HOME/.local/bin:$PATH"
-yt-chonk --help
-```
-
-Add the `export PATH=...` line above to `~/.zshrc` (zsh) or `~/.bashrc` (bash)
-to keep it for new terminals. After updating the code, build and copy again.
-
-You'll also need [yt-dlp](https://github.com/yt-dlp/yt-dlp#installation),
-[FFmpeg](https://ffmpeg.org/download.html) (including ffprobe), and
-[Deno with yt-dlp's EJS scripts](https://github.com/yt-dlp/yt-dlp/wiki/EJS)
-in your PATH.
+To update later: `brew update && brew upgrade juleshrd/yt-chonk/yt-chonk`.
 
 ## Use
 
@@ -64,7 +53,10 @@ aren't supported.
 
 ## Development
 
+Requires Go 1.23 or newer. To build from source instead of using Homebrew:
+
 ```sh
+go build -o yt-chonk ./cmd/yt-chonk
 go test ./...
 go vet ./...
 sh scripts/release.sh v0.1.0

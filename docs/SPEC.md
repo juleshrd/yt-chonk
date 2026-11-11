@@ -126,8 +126,8 @@ n'impose ni framework, ni système de plugins.
 
 Distribuer le binaire Go par système et architecture, avec archives, sommes de
 contrôle et instructions d'installation. Garder le CLI compilable sans CGO.
-Une installation simplifiée, notamment via Homebrew, peut être ajoutée sans
-changer les contrats fonctionnels.
+La formule Homebrew du dépôt installe le CLI et ses outils externes avec
+une révision source figée. Le modèle local reste un téléchargement explicite.
 
 Le binaire applicatif ne remplace pas yt-dlp, FFmpeg/ffprobe, le runtime JavaScript
 nécessaire au support YouTube, ni whisper.cpp et ses modèles pour le local.

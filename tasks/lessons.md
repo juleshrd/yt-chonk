@@ -11,3 +11,6 @@
 - Privilégier la langue produit demandée explicitement : ici CLI et README en
   anglais, même si les échanges de travail sont en français. Pour le README,
   garder un ton simple et une procédure d'installation globale concrète.
+- Pour un CLI à distribuer, proposer une installation qui gère aussi les
+  dépendances et le PATH. Réserver compilation, copie de binaire et configuration
+  du shell à la documentation de développement, pas au parcours principal.
