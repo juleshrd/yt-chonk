@@ -5,7 +5,7 @@
 - [x] Verify current file-transcription models and official USD pricing.
 - [x] Add an explicit model choice with per-minute and per-hour prices; preserve saved choices and CLI overrides.
 - [x] Cover selection, repeat setup, invalid input and cancellation; update short English docs.
-- [ ] Run Go checks and four CGO-free builds, then publish an updated Homebrew revision.
+- [x] Run Go checks and four CGO-free builds; update the Homebrew revision for publication.
 
 Plan: use an offline, dated price snapshot for the two supported file models.
 Keep Mini 3 as the default; explain the local backend has no API fee.
@@ -27,6 +27,8 @@ Show the official pricing link and do not make a paid/network call in setup.
   setup exercised with temporary config (Small selected), and version checked.
   README/SPEC/integration local links checked. Independent review found no issues.
 - Full Homebrew installation and real Mistral transcription remain untested.
+- Homebrew formula updated to version 0.1.1, pinned to app commit c75fad1.
+  Ruby syntax and Homebrew formula loading/source metadata checked.
 
 Plan validé par l'utilisateur le 11 novembre 2026.
 

@@ -2,8 +2,8 @@ class YtChonk < Formula
   desc "Transcribe YouTube audio with Mistral or whisper.cpp"
   homepage "https://github.com/juleshrd/yt-chonk"
   url "https://github.com/juleshrd/yt-chonk.git",
-      revision: "79b1077dade8d37a336eb394aac7111de6f29f85"
-  version "0.1.0"
+      revision: "c75fad1273309bdbf46c82f66f4128388bc52568"
+  version "0.1.1"
   license "MIT"
 
   depends_on "go" => :build
